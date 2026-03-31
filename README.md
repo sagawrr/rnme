@@ -48,3 +48,7 @@ npx expo start
 
 Email: `test@rnme.com`  
 Password: `Test123$$`
+
+## Download APK
+
+- **APK**: [`rnme.apk`](https://raw.githubusercontent.com/sagawrr/rnme/main/rnme.apk)

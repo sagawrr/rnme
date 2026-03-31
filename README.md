@@ -52,3 +52,4 @@ Password: `Test123$$`
 ## Download APK
 
 - **APK**: [`rnme.apk`](https://raw.githubusercontent.com/sagawrr/rnme/main/rnme.apk)
+> Note: This is a **universal APK**, so the file size is larger (includes multiple CPU architectures).

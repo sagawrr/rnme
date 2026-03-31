@@ -1,15 +1,20 @@
 {
   "expo": {
-    "name": "rnme",
+    "name": "Movie Explorer",
     "slug": "rnme",
     "version": "1.0.0",
     "orientation": "portrait",
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "icon": "./assets/images/icon.png",
     "scheme": "rnme",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.rnme"
     },
     "android": {
       "adaptiveIcon": {
@@ -19,11 +24,8 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
-    },
-    "web": {
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "predictiveBackGestureEnabled": false,
+      "package": "com.anonymous.rnme"
     },
     "plugins": [
       "expo-router",

@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { ENV } from '@/constants/config';
 
-import type { TmdbMovie, TmdbPaginatedResponse, TmdbVideosResponse } from '@/store/services/tmdb/types';
+import type { TmdbMovie, TmdbPaginatedResponse, TmdbVideosResponse } from '@/store/api/types';
 
 const tmdbApiKey = ENV.TMDB_API_KEY;
 
@@ -14,12 +14,16 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-const movieTag = (id: number) => [{ type: 'Movie' as const, id }];
+const movieTag = (id: number): { type: 'Movie'; id: number }[] => [{ type: 'Movie', id }];
+
+const MOVIE_CACHE_SECONDS = 60 * 60 * 24;
 
 export const tmdbApi = createApi({
   reducerPath: 'tmdbApi',
   baseQuery,
   tagTypes: ['Movie'],
+  keepUnusedDataFor: MOVIE_CACHE_SECONDS,
+  refetchOnReconnect: true,
   endpoints: (build) => ({
     getPopularMovies: build.query<TmdbPaginatedResponse<TmdbMovie>, { page?: number } | void>({
       query: (arg) => ({
@@ -28,10 +32,7 @@ export const tmdbApi = createApi({
       }),
     }),
 
-    searchMovies: build.query<
-      TmdbPaginatedResponse<TmdbMovie>,
-      { query: string; page?: number }
-    >({
+    searchMovies: build.query<TmdbPaginatedResponse<TmdbMovie>, { query: string; page?: number }>({
       query: ({ query, page = 1 }) => ({
         url: '/search/movie',
         params: { query, page, api_key: tmdbApiKey },

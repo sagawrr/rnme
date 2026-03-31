@@ -30,4 +30,3 @@ export type TmdbVideosResponse = {
   id: number;
   results: TmdbVideo[];
 };
-

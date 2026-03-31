@@ -1,50 +1,55 @@
-# Welcome to your Expo app 👋
+# RNME — Movie Explorer
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+React Native (Expo) app to browse TMDb movies, save favorites locally, and watch trailers.
 
-## Get started
+## Architecture overview
 
-1. Install dependencies
+- **Routing**: Expo Router (`src/app/`) with tabs + stack routes.
+- **Screens**: UI lives in `src/screens/`; shared UI primitives in `src/components/ui/`.
+- **State**: Redux Toolkit + RTK Query in `src/store/` (`tmdbApi`, slices).
+- **Persistence**: `redux-persist` persists `tmdbApi`, `favorites`, `theme` (AsyncStorage).
+- **Auth**: Supabase auth client in `src/lib/supabase/client.ts`.
 
-   ```bash
-   npm install
-   ```
+## Libraries (purpose)
 
-2. Start the app
+- **Routing**: `expo-router`
+- **State**: `@reduxjs/toolkit`, `react-redux` (RTK Query for TMDb)
+- **Persistence**: `redux-persist`, `@react-native-async-storage/async-storage`
+- **Auth**: `@supabase/supabase-js`
+- **Lists**: `@shopify/flash-list`
+- **Forms/validation**: `react-hook-form`, `zod`
+- **UI/motion**: `react-native-reanimated`, `expo-image`
+- **Network**: `@react-native-community/netinfo`
+- **Trailers**: `react-native-youtube-bridge`, `react-native-webview`, `expo-web-browser`
 
-   ```bash
-   npx expo start
-   ```
+## API source
 
-In the output, you'll find options to open the app in a
+- **TMDb**: movie metadata + images.
+- **YouTube**: trailer playback uses video keys from TMDb’s `/movie/{id}/videos`.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Setup & run locally
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+Create a `.env` in the project root:
 
 ```bash
-npm run reset-project
+EXPO_PUBLIC_TMDB_API_KEY=your_tmdb_api_key
+EXPO_PUBLIC_TMDB_BASE_URL=https://api.themoviedb.org/3
+
+EXPO_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your_anon_key
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+```bash
+npm install
+npx expo start
+```
 
-## Learn more
+### Test login
 
-To learn more about developing your project with Expo, look at the following resources:
+Email: `test@rnme.com`  
+Password: `Test123$$`
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Download APK
 
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- **APK**: [`rnme.apk`](https://raw.githubusercontent.com/sagawrr/rnme/main/rnme.apk)
+> Note: This is a **universal APK**, so the file size is larger (includes multiple CPU architectures).
